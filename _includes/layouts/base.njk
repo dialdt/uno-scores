@@ -1,8 +1,23 @@
-{% include 'header.njk'}
-
-<html>
-
+{% include 'layouts/header.njk' %}
   <body>
-    <p></p>
-  </body>
-</html>
+    <h2>Score</h2>
+      <ul>
+        <li><label for="mummy">Mummy</label><input type="number" id="mummy"></li>
+        <li><label for="isla">Isla</label><input type="number" id="isla"></li>
+        <li><label for="daddy">Mummy</label><input type="daddy" id="daddy"></li>
+      </ul>
+    <h2>Leaderboard</h2>
+    <ul>
+      <li>First: Isla</li>
+      <li>Second: Mummy</li>
+      <li>Third: Daddy</li>
+    </ul>
+
+    <ul class="navigation">
+      <li><a href="#">New game</a></li>
+      <li><a href="#">New team</a></li>
+      <li><a href="#">New player</a></li>
+      <li><a href="#">Logout</a></li>
+
+    </ul>
+{% include 'layouts/footer.njk' %}

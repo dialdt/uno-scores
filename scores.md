@@ -1,0 +1,5 @@
+---
+eleventyNavigation:
+  key: scores
+---
+Test
