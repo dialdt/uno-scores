@@ -9,6 +9,7 @@ var firebaseConfig = {
 };
 
 // Initialize firebase
+var newScore;
 
 firebase.initializeApp(firebaseConfig);
 
@@ -64,15 +65,37 @@ async function login() {
   //save user id to session storage
   localStorage.setItem('user', uid);
 
-  //initialize data
-  initData(uid);
-
   window.location.href = '/main/'
 
 }
 
-function updateScores() {
+function updateScores(button) {
+  var data = db.collection('teams').doc(localStorage.getItem('user'));
+  var score = Number(button.previousElementSibling.value);
+  var name = button.previousElementSibling.previousElementSibling.innerHTML;
+  var updateData = {};
+  updateData['Players.'+ name + '.score'] = newScore;
 
+  var players = db.collection('teams').doc(localStorage.getItem('user'));
+  console.log(localStorage.getItem('user'));
+
+  data.get().then(function(doc){
+    if(doc.exists) {
+      var obj = doc.data();
+      var currentScore = obj[name];
+      console.log(currentScore);
+      newScore =  Number(currentScore) + score;
+      console.log(newScore);
+      data.update({
+          [`${name}`]: `${newScore}`
+      });
+    } else {
+      return 'no such document!';
+    }
+  }).catch(function(error){
+    console.log(error);
+  });
+  showScores(localStorage.getItem('user'));
 }
 
 //// TODO: think about how to run this function when page loads?  Maybe put values into sessionStorage?
@@ -81,18 +104,20 @@ function showScores(user) {
   players.get().then(function(doc){
     if(doc.exists) {
       //get player data
-      var obj = doc.data().Players;
+      var obj = doc.data();
       var scoresDiv = document.getElementById('scores');
       var updateScores = document.getElementById('updateScores');
       // clear div contents
       scoresDiv.innerHTML = '';
       updateScores.innerHTML = '';
-      for(var i = 0; i < Object.keys(obj).length; i++) {
-        var name = Object.keys(obj)[i];
-        var score = obj[Object.keys(obj)[i]].score;
+      console.log(Object.keys(obj).length);
+      for(var key in obj) {
+        console.log(obj);
+        var name = key;
+        var score = obj[key];
 
         //update page elements with db data
-        updateScores.innerHTML += '<li><label for=' + name + '">'+ name + '</label><input type="number" id="' + name + '"></li>';
+        updateScores.innerHTML += '<li><label for=' + name + '">'+ name + '</label><input type="number" id="' + name + '"><button class="winner" onclick="updateScores(this)">Winner!</button></li>';
         scoresDiv.innerHTML += '<li>' + name + ': ' + score + '</li>';
 
       };
@@ -135,23 +160,11 @@ function viewLeaderboard() {
 // Collection: games
 // Collection: scores
 
-function test(userId) {
-db.collection('teams').doc(userId).set({
-  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-  Players: {
-    Mummy: {
-      date: firebase.firestore.FieldValue.serverTimestamp(),
-      score: 535
-    },
-    Daddy: {
-      date: firebase.firestore.FieldValue.serverTimestamp(),
-      score: 600
-    },
-    Isla: {
-      date: firebase.firestore.FieldValue.serverTimestamp(),
-      score: 400
-    }
-  }
+function test() {
+db.collection('team').doc(localStorage.getItem('user')).set({
+    Mummy: 535,
+    Daddy: 600,
+    Isla: 400
 }).then(function() {
   console.log('data successfully written!');
   //window.location.href = '/main/';
