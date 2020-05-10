@@ -6,12 +6,43 @@ title: Uno Score Tracker
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
     <title></title>
   </head>
   <header>
     <ul class="nav align-middle">
+      <li class="nav-item nav-item-active"><a href="/login/">Login</a></li>
       <li class="nav-item"><a href="/scores/">scores</a></li>
+      <li class="nav-item"><a href="/rules/">rules</a></li>
+      <li class="nav-item"><a href="/main/">home</a></li>
     </ul>
   </header>
+
+  <body>
+
+    <p><label for="username">Email: </label><input type="email" id="username"><br>
+<label for="password">Password: </label><input type="password" id="password"></p>
+
+
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+  <footer>
+    <small>&copy; 2020 Isla Jassat</small>
+  </footer>
+</html>
 
