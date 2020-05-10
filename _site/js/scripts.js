@@ -1,11 +1,11 @@
 var firebaseConfig = {
-  apiKey: "AIzaSyBtU6RSyNF3drCI1qx1HvwZfaso_xWU3OE",
-  authDomain: "uno-scores-60cd6.firebaseapp.com",
-  databaseURL: "https://uno-scores-60cd6.firebaseio.com",
-  projectId: "uno-scores-60cd6",
-  storageBucket: "uno-scores-60cd6.appspot.com",
-  messagingSenderId: "401278942343",
-  appId: "1:401278942343:web:1f931b6090acd9c1894c22"
+  apiKey: config.apiKey,
+  authDomain: config.authDomain,
+  databaseURL: config.databaseURL,
+  projectId: config.projectId,
+  storageBucket: config.storageBucket,
+  messagingSenderId: config.messagingSenderId,
+  appId: config.appId
 };
 
 // Initialize firebase
