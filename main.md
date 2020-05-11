@@ -12,6 +12,7 @@ eleventyNavigation:
     <li><label for="isla">Isla</label><input type="number" id="isla"></li>
     <li><label for="daddy">Mummy</label><input type="daddy" id="daddy"></li>
   </ul>
+  <button onclick="document.getElementById('newPlayerContainer').style='visibility:visible;'">Add Player</button><div id="newPlayerContainer"><label for="newPlayer"><input type="text" id="newPlayerName"></label><button onclick="addPlayer()">+</button></div>
   <button>Update Scores</button>
 <h2>Leaderboard</h2>
 <div id="scoreContainer">

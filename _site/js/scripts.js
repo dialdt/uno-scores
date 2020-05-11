@@ -8,6 +8,8 @@ var firebaseConfig = {
   appId: config.appId
 };
 
+
+
 // Initialize firebase
 var newScore;
 
@@ -31,10 +33,53 @@ function initData(userId) {
   });
 }
 
-function addPlayer() {
-  //// TODO: 1. Write to db
+function resetScores() {
 
-  // TODO: 2. Confirm player added
+}
+
+function addPlayer() {
+  //get name
+  var playerName = document.getElementById('newPlayerName').value;
+  var data = db.collection('teams').doc(localStorage.getItem('user'));
+  //some validation
+  if(playerName != '') {
+    data.update({
+          [`${playerName}`]: 0
+    }).then(function(){
+      console.log('data added successfully!');
+    }).catch(function(error){
+      console.log('error writing data');
+    })
+  } else {
+    console.log('Please enter a value');
+  }
+
+  //hide textbox
+  document.getElementById('newPlayerContainer').style.visibility = 'hidden';
+
+}
+
+function removePlayer(name) {
+  var nm = name.previousElementSibling.previousElementSibling.getAttribute('id');
+  var data = db.collection('teams').doc(localStorage.getItem('user'));
+  data.update({
+    [`${nm}`]: firebase.firestore.FieldValue.delete()
+  }).then(function(){
+    console.log('Player deleted');
+  }).catch(function(error){
+    console.log(error);
+  })
+}
+
+function sort(){
+  var data = db.collection('teams').doc(localStorage.getItem('user'));
+  var obj = data.get().then(function(doc){
+    if(doc.exists){
+
+    } else {
+      console.log('no such document');
+    }
+  })
 }
 
 function addRule() {
@@ -77,15 +122,12 @@ function updateScores(button) {
   updateData['Players.'+ name + '.score'] = newScore;
 
   var players = db.collection('teams').doc(localStorage.getItem('user'));
-  console.log(localStorage.getItem('user'));
 
   data.get().then(function(doc){
     if(doc.exists) {
       var obj = doc.data();
       var currentScore = obj[name];
-      console.log(currentScore);
       newScore =  Number(currentScore) + score;
-      console.log(newScore);
       data.update({
           [`${name}`]: `${newScore}`
       });
@@ -93,7 +135,7 @@ function updateScores(button) {
       return 'no such document!';
     }
   }).catch(function(error){
-    console.log(error);
+    return 'There was an error: ' + error;
   });
   showScores(localStorage.getItem('user'));
 }
@@ -103,21 +145,21 @@ function showScores(user) {
   var players = db.collection('teams').doc(user);
   players.get().then(function(doc){
     if(doc.exists) {
+
       //get player data
       var obj = doc.data();
       var scoresDiv = document.getElementById('scores');
       var updateScores = document.getElementById('updateScores');
+
       // clear div contents
       scoresDiv.innerHTML = '';
       updateScores.innerHTML = '';
-      console.log(Object.keys(obj).length);
       for(var key in obj) {
-        console.log(obj);
         var name = key;
         var score = obj[key];
 
         //update page elements with db data
-        updateScores.innerHTML += '<li><label for=' + name + '">'+ name + '</label><input type="number" id="' + name + '"><button class="winner" onclick="updateScores(this)">Winner!</button></li>';
+        updateScores.innerHTML += '<li><label for=' + name + '">'+ name + '</label><input type="number" id="' + name + '"><button class="winner" onclick="updateScores(this)">Winner!</button><button onclick="removePlayer(this)">x</button></li>';
         scoresDiv.innerHTML += '<li>' + name + ': ' + score + '</li>';
 
       };
@@ -161,14 +203,4 @@ function viewLeaderboard() {
 // Collection: scores
 
 function test() {
-db.collection('team').doc(localStorage.getItem('user')).set({
-    Mummy: 535,
-    Daddy: 600,
-    Isla: 400
-}).then(function() {
-  console.log('data successfully written!');
-  //window.location.href = '/main/';
-}).catch(function(error){
-  console.error("Error writing document: ", error);
-});;
 }
