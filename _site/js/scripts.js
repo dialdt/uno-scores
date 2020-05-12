@@ -26,6 +26,10 @@ var db = firebase.firestore();
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 var provider = new firebase.auth.GoogleAuthProvider();
 
+function databaseOp(col) {
+  return db.collection(col).doc(localStorage.getItem('user'))
+}
+
 function initData(userId) {
   db.collection('teams').doc(userId).set({
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -35,9 +39,21 @@ function initData(userId) {
   }).catch(function(error){
     console.error("Error writing document: ", error);
   });
+
+  db.collection('rules').doc(userId).set({
+
+  }).then(function(){
+    console.log('data successfully written!')
+  }).catch(function(error){
+    console.error("Error writing document: ", error);
+  });
 }
 
 function resetScores() {
+
+}
+
+function createNewPlayer() {
 
 }
 
@@ -65,7 +81,7 @@ function addPlayer() {
 }
 
 function removePlayer(name) {
-  var nm = name.previousElementSibling.previousElementSibling.getAttribute('id');
+  var nm = name;
   var data = db.collection('teams').doc(localStorage.getItem('user'));
   data.update({
     [`${nm}`]: firebase.firestore.FieldValue.delete()
@@ -94,10 +110,29 @@ function addRule() {
   // TODO: 2. Confirm rule added
 }
 
-function addTeam() {
-  //// TODO: 1. Write to db
+function newTeam(player) {
+  //take to new page or modal
+  //check whether doc exists
+  var data = databaseOp('teams');
+  var name = player.previousElementSibling.value;
+  var parent = document.getElementById('newPlayers');
+  var teamPlayers = document.getElementById('teamPlayers');
 
-  // TODO: 2. Confirm team added
+  data.get().then(function(doc){
+    if(doc.exists) {
+      data.update({
+        [`${name}`] : 0
+      })
+    } else {
+      data.set({
+        [`${name}`] : 0
+      })
+    }
+  });
+
+  teamPlayers.innerHTML += '<li class="newPlayer" id="' + name + '">' + name + '<button onclick="removePlayer(this.parentElement.getAttribute(\'id\'));this.parentElement.remove()">x</button></li>';
+  teamPlayers.value = '';
+
 }
 
 function newGame() {
@@ -155,35 +190,51 @@ function updateScores(button) {
 //// TODO: think about how to run this function when page loads?  Maybe put values into sessionStorage?
 function showScores(user) {
   var players = db.collection('teams').doc(user);
+  var scoresDiv = document.getElementById('scores');
+  var updateScores = document.getElementById('updateScores');
+  var addPlayerMsg = document.getElementById('addPlayersMsg');
   players.get().then(function(doc){
+
+    //1. check if document exists
     if(doc.exists) {
 
-      //get player data
-      var obj = doc.data();
-      var scoresDiv = document.getElementById('scores');
-      var updateScores = document.getElementById('updateScores');
+      //1a. if document exists, check if it contains any data.  If so, output data
+      if(Object.keys(doc.data()).length > 0) {;
+        //get player data
+        var obj = doc.data();
 
-      // clear div contents
-      scoresDiv.innerHTML = '';
-      updateScores.innerHTML = '';
-      for(var key in obj) {
-        var name = key;
-        var score = obj[key];
+        // clear div contents
+        addPlayerMsg.innerHTML = '';
+        scoresDiv.innerHTML = '';
+        updateScores.innerHTML = '';
 
-        //update page elements with db data
-        updateScores.innerHTML += '<li class="player"><label for=' + name + '">'+ name + '</label><input class="input" type="number" id="' + name + '"><button class="button-primary" onclick="updateScores(this)">Winner!</button><button class="smallBtn" onclick="removePlayer(this)">x</button></li>';
-        scoresDiv.innerHTML += '<li class="player">' + name + ': ' + score + '</li>';
+        //loop through database object and output li
+        for(var key in obj) {
+          var name = key;
+          var score = obj[key];
 
-      };
+          //update page elements with db data
+          updateScores.innerHTML += '<li class="player"><label for=' + name + '">'+ name + '</label><input class="input" type="number" id="' + name + '"><button class="button-primary" onclick="updateScores(this)">Winner!</button><button class="smallBtn" onclick="removePlayer(this.previousElementSibling.previousElementSibling.getAttribute(\'id\'))">x</button></li>';
+          scoresDiv.innerHTML += '<li class="player">' + name + ': ' + score + '</li>';
+        };
+      } else {
+        //1b. if document exists but does not contain any data, clear page and prompt user to add data
+        scoresDiv.innerHTML = '';
+        updateScores.innerHTML = '';
+        if(addPlayerMsg != null) {
+          addPlayerMsg.innerHTML = '<p>Add a player to get started</p>';
+        }
+      }
     } else {
-      return 'no such document'
+      //2. if document does not exist, prompt user to create a new document
+      addPlayerMsg.innerHTML = '<p>No team here!  Please <a href="#" onclick="window.location.href=\'/create/\'">add a team</a> to get started</p>'
     }
   }).catch(function(error){
     console.log(error);
   });
   var usr = localStorage.getItem('userName');
   if(usr != null) {
-    document.getElementById('welcome').innerHTML = '<small>' + randomGreeting(usr) + ' <a onclick="logout()" href="#">logout?</a></small>';
+    document.getElementById('welcome').innerHTML = '<small>' + sessionStorage.getItem('greeting') + ' <a onclick="logout()" href="#">logout?</a></small>';
   }
 }
 
@@ -227,7 +278,7 @@ function test() {
 
 function randomGreeting(name) {
   var randomNum = Math.floor(Math.random() * greetings.length);
-  return greetings[randomNum] + ', ' + name;
+  sessionStorage.setItem('greeting',greetings[randomNum] + ', ' + name);
 }
 
 Date.prototype.addHours = function(h) {
