@@ -1,7 +1,3 @@
----
-title: Uno Score Tracker
----
-
 <!doctype html>
 <html>
   <head>
@@ -9,48 +5,56 @@ title: Uno Score Tracker
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <link type="text/css" rel="stylesheet" href="/css/styles.css" />
-    <title></title>
+    <link type="text/css" rel="stylesheet" href="/css/skeleton.css" />
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css" />
+    <title>Uno Score Tracker</title>
   </head>
   <header>
     <ul class="nav align-middle">
-      <li class="nav-item"><a href="/login/">Login</a></li>
-      <li class="nav-item"><a href="/scores/">scores</a></li>
-      <li class="nav-item"><a href="/rules/">rules</a></li>
-      <li class="nav-item nav-item-active"><a href="/main/">home</a></li>
+      <li class="nav-item"><a href="/rules/">Rules</a></li>
+      <li class="nav-item nav-item-active"><a href="/main/">Home</a></li>
     </ul>
+    <p class="welcome" id="welcome"></p>
   </header>
 
-  <body>
+  <script>
+    if(sessionStorage.getItem('authState') === null ) {
+      window.location.href = '/denied/';
+    }
+  </script>
+  <body onload="showScores(localStorage.getItem('user'))">
+    <div class="container">
 
-    <body onload="showScores(localStorage.getItem('user'))">
+    <div class="row">
+<div class="eight columns">
 <h2>Score</h2>
   <ul id="updateScores">
     <li><label for="mummy">Mummy</label><input type="number" id="mummy"></li>
     <li><label for="isla">Isla</label><input type="number" id="isla"></li>
     <li><label for="daddy">Mummy</label><input type="daddy" id="daddy"></li>
   </ul>
-  <button onclick="document.getElementById('newPlayerContainer').style='visibility:visible;'">Add Player</button><div id="newPlayerContainer"><label for="newPlayer"><input type="text" id="newPlayerName"></label><button onclick="addPlayer()">+</button></div>
-  <button>Update Scores</button>
+  <ul>
+    <li><div id="newPlayerContainer"><input type="text" id="newPlayerName"><button class="smallBtn" onclick="addPlayer()">+</button></div></li>
+  </ul>
+  <button class="button-primary" onclick="document.getElementById('newPlayerContainer').style='visibility:visible;'">Add Player</button>
+  <button class="button-primary">Update Scores</button>
+</div>
+<div class="four columns">
 <h2>Leaderboard</h2>
 <div id="scoreContainer">
     <ul id="scores">
-      <li>First: Isla</li>
-      <li>Second: Mummy</li>
-      <li>Third: Daddy</li>
+      <li class="lb-player">First: Isla</li>
+      <li class="lb-player">Second: Mummy</li>
+      <li class="lb-player">Third: Daddy</li>
     </ul>
 </div>
-<p><button id="getScores" onclick="showScores(localStorage.getItem('user'))">Get Scores</button></p>
 <ul class="navigation">
-  <li><a href="#">New game</a></li>
-  <li><a href="#">New team</a></li>
-  <li><a href="#">New player</a></li>
-  <li><a href="#">New house rule</a></li>
-  <li><a href="#">Logout</a></li>
 </ul>
-</body>
+</div>
+</div>
 
 
-
+    </div>
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -67,7 +71,7 @@ title: Uno Score Tracker
     <script src="/js/scripts.js"></script>
   </body>
   <footer>
-    <small>&copy; 2020 Isla Jassat</small>
+    <small id="copyright">&copy; 2020 Isla Jassat</small>
   </footer>
 </html>
 

@@ -9,11 +9,15 @@ var firebaseConfig = {
 };
 
 
-
+var greetings = ['Aloha', 'Yo', 'Hey', 'Hello', 'Welcome', 'Hi', 'Word up', 'What\'s up', '\'sup'];
 // Initialize firebase
 var newScore;
 
 firebase.initializeApp(firebaseConfig);
+
+var usr;
+var name;
+
 
 var db = firebase.firestore();
 
@@ -47,6 +51,7 @@ function addPlayer() {
           [`${playerName}`]: 0
     }).then(function(){
       console.log('data added successfully!');
+      showScores(localStorage.getItem('user'));
     }).catch(function(error){
       console.log('error writing data');
     })
@@ -66,6 +71,7 @@ function removePlayer(name) {
     [`${nm}`]: firebase.firestore.FieldValue.delete()
   }).then(function(){
     console.log('Player deleted');
+    showScores(localStorage.getItem('user'));
   }).catch(function(error){
     console.log(error);
   })
@@ -103,14 +109,20 @@ function newGame() {
 }
 
 async function login() {
-  const userCredentials = await firebase.auth().signInWithPopup(provider)
-
-  const uid = userCredentials.user.uid;
-
-  //save user id to session storage
-  localStorage.setItem('user', uid);
-
-  window.location.href = '/main/'
+  await firebase.auth().signInWithPopup(provider).then(function(result){
+    window.location.href = "/auth/";
+    //store user id in local storage
+    localStorage.setItem('user', result.user.uid);
+    localStorage.setItem('userName', result.user.displayName);
+    //store authentication state in session storage
+    sessionStorage.setItem('authState', 'Authenticated');
+    //set authentication to expire 1 hour from now
+    //sessionStorage.setItem("authExpires", Date.now.addHours(1));
+    //navigate to main page
+    window.location.href = '/main/';
+  }).catch(function(error){
+    console.log(error);
+  });
 
 }
 
@@ -131,13 +143,13 @@ function updateScores(button) {
       data.update({
           [`${name}`]: `${newScore}`
       });
+      showScores(localStorage.getItem('user'));
     } else {
       return 'no such document!';
     }
   }).catch(function(error){
     return 'There was an error: ' + error;
   });
-  showScores(localStorage.getItem('user'));
 }
 
 //// TODO: think about how to run this function when page loads?  Maybe put values into sessionStorage?
@@ -159,25 +171,33 @@ function showScores(user) {
         var score = obj[key];
 
         //update page elements with db data
-        updateScores.innerHTML += '<li><label for=' + name + '">'+ name + '</label><input type="number" id="' + name + '"><button class="winner" onclick="updateScores(this)">Winner!</button><button onclick="removePlayer(this)">x</button></li>';
-        scoresDiv.innerHTML += '<li>' + name + ': ' + score + '</li>';
+        updateScores.innerHTML += '<li class="player"><label for=' + name + '">'+ name + '</label><input class="input" type="number" id="' + name + '"><button class="button-primary" onclick="updateScores(this)">Winner!</button><button class="smallBtn" onclick="removePlayer(this)">x</button></li>';
+        scoresDiv.innerHTML += '<li class="player">' + name + ': ' + score + '</li>';
 
       };
-      return doc.data().Players;
     } else {
       return 'no such document'
     }
   }).catch(function(error){
     console.log(error);
   });
+  var usr = localStorage.getItem('userName');
+  if(usr != null) {
+    document.getElementById('welcome').innerHTML = '<small>' + randomGreeting(usr) + ' <a onclick="logout()" href="#">logout?</a></small>';
+  }
 }
 
 function logout() {
   //// TODO: 1. check user logged in
-
+  firebase.auth().signOut().then(function(){
+    localStorage.clear();
+    sessionStorage.clear();
+    console.log('logged out');
+    window.location.href = '../';
+  }).catch(function(error){
+    console.log(error);
+  });
   //clear local storage as data will be pulled on next Login
-  localStorage.clear();
-
   // TODO: 2. log user out if logged in OR do not present logout button
 }
 
@@ -203,4 +223,14 @@ function viewLeaderboard() {
 // Collection: scores
 
 function test() {
+}
+
+function randomGreeting(name) {
+  var randomNum = Math.floor(Math.random() * greetings.length);
+  return greetings[randomNum] + ', ' + name;
+}
+
+Date.prototype.addHours = function(h) {
+   this.setTime(this.getTime() + (h*60*60*1000));
+   return this;
 }

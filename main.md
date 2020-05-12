@@ -1,35 +1,35 @@
 ---
-layout: layouts/base.njk
+layout: layouts/main.njk
 eleventyNavigation:
-  key: home
+  key: Home
   order: 1
+templateClass: tmpl-main
 ---
-
-<body onload="showScores(localStorage.getItem('user'))">
+<div class="row">
+<div class="eight columns">
 <h2>Score</h2>
   <ul id="updateScores">
     <li><label for="mummy">Mummy</label><input type="number" id="mummy"></li>
     <li><label for="isla">Isla</label><input type="number" id="isla"></li>
     <li><label for="daddy">Mummy</label><input type="daddy" id="daddy"></li>
   </ul>
-  <button onclick="document.getElementById('newPlayerContainer').style='visibility:visible;'">Add Player</button><div id="newPlayerContainer"><label for="newPlayer"><input type="text" id="newPlayerName"></label><button onclick="addPlayer()">+</button></div>
-  <button>Update Scores</button>
+  <ul>
+    <li><div id="newPlayerContainer"><input type="text" id="newPlayerName"><button class="smallBtn" onclick="addPlayer()">+</button></div></li>
+  </ul>
+  <button class="button-primary" onclick="document.getElementById('newPlayerContainer').style='visibility:visible;'">Add Player</button>
+  <button class="button-primary">Update Scores</button>
+</div>
+<div class="four columns">
 <h2>Leaderboard</h2>
 <div id="scoreContainer">
     <ul id="scores">
-      <li>First: Isla</li>
-      <li>Second: Mummy</li>
-      <li>Third: Daddy</li>
+      <li class="lb-player">First: Isla</li>
+      <li class="lb-player">Second: Mummy</li>
+      <li class="lb-player">Third: Daddy</li>
     </ul>
 </div>
 
-<button id="getScores" onclick="showScores(localStorage.getItem('user'))">Get Scores</button>
-
 <ul class="navigation">
-  <li><a href="#">New game</a></li>
-  <li><a href="#">New team</a></li>
-  <li><a href="#">New player</a></li>
-  <li><a href="#">New house rule</a></li>
-  <li><a href="#">Logout</a></li>
 </ul>
-</body>
+</div>
+</div>

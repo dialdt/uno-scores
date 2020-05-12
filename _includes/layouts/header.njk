@@ -1,7 +1,3 @@
----
-title: Uno Score Tracker
----
-
 <!doctype html>
 <html>
   <head>
@@ -9,7 +5,9 @@ title: Uno Score Tracker
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <link type="text/css" rel="stylesheet" href="{{ '/css/styles.css' | url }}" />
-    <title>{{ title }}</title>
+    <link type="text/css" rel="stylesheet" href="{{ '/css/skeleton.css' | url }}" />
+    <link type="text/css" rel="stylesheet" href="{{ '/css/normalize.css' | url }}" />
+    <title>Uno Score Tracker</title>
   </head>
   <header>
     <ul class="nav align-middle">
@@ -17,4 +15,5 @@ title: Uno Score Tracker
       <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}"><a href="{{ entry.url | url }}">{{ entry.title }}</a></li>
     {%- endfor %}
     </ul>
+    <p class="welcome" id="welcome"></p>
   </header>

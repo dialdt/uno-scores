@@ -1,6 +1,6 @@
 ---
 layout: layouts/base.njk
 eleventyNavigation:
-  key: rules
+  key: Rules
 ---
 Test

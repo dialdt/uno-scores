@@ -1,3 +1,69 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+.nav-item {
+  display: inline;
+  list-style: none;
+  padding-left: 20px;
+}
+
 #newPlayerContainer {
   visibility: hidden;
+}
+
+.smallBtn {
+
+}
+
+.button-primary {
+
+}
+
+.input {
+
+}
+
+#copyright {
+  position: absolute;
+  bottom: 10px;
+  width: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.logout {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 0.7em;
+}
+
+.nav {
+  padding-top: 10px;
+  height: 50px;
+}
+
+.welcome {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+}
+
+#img-container>img {
+  height: 64px;
+  width: 64px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -32px;
+  margin-left: -32px;
 }

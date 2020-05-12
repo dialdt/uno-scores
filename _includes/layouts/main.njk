@@ -1,0 +1,12 @@
+{% include 'layouts/header.njk' %}
+  <script>
+    if(sessionStorage.getItem('authState') === null ) {
+      window.location.href = '/denied/';
+    }
+  </script>
+  <body onload="showScores(localStorage.getItem('user'))">
+    <div class="container">
+
+    {{ content | safe }}
+
+{% include 'layouts/footer.njk' %}

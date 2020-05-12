@@ -1,7 +1,3 @@
----
-title: Uno Score Tracker
----
-
 <!doctype html>
 <html>
   <head>
@@ -9,24 +5,26 @@ title: Uno Score Tracker
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <link type="text/css" rel="stylesheet" href="/css/styles.css" />
-    <title></title>
+    <link type="text/css" rel="stylesheet" href="/css/skeleton.css" />
+    <link type="text/css" rel="stylesheet" href="/css/normalize.css" />
+    <title>Uno Score Tracker</title>
   </head>
   <header>
     <ul class="nav align-middle">
-      <li class="nav-item nav-item-active"><a href="/login/">Login</a></li>
-      <li class="nav-item"><a href="/scores/">scores</a></li>
-      <li class="nav-item"><a href="/rules/">rules</a></li>
-      <li class="nav-item"><a href="/main/">home</a></li>
+      <li class="nav-item"><a href="/rules/">Rules</a></li>
+      <li class="nav-item"><a href="/main/">Home</a></li>
     </ul>
+    <p class="welcome" id="welcome"></p>
   </header>
 
   <body>
+    <div class="container">
 
     <p><label for="username">Email: </label><input type="email" id="username"><br>
 <label for="password">Password: </label><input type="password" id="password"></p>
 
 
-
+    </div>
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
@@ -43,7 +41,7 @@ title: Uno Score Tracker
     <script src="/js/scripts.js"></script>
   </body>
   <footer>
-    <small>&copy; 2020 Isla Jassat</small>
+    <small id="copyright">&copy; 2020 Isla Jassat</small>
   </footer>
 </html>
 
