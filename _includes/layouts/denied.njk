@@ -1,0 +1,6 @@
+<script>
+  if(sessionStorage.getItem('authState') === null ) {
+    window.location.href = '/denied/';
+  }
+  console.log(window.location.pathname);
+</script>

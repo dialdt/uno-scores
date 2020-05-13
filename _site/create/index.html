@@ -11,18 +11,20 @@
   </head>
   <header>
     <ul class="nav align-middle">
-      <li class="nav-item"><a href="/rules/">Rules</a></li>
       <li class="nav-item"><a href="/main/">Home</a></li>
+      <li class="nav-item"><a href="/rules/">Add Rule</a></li>
     </ul>
     <p class="welcome" id="welcome"></p>
   </header>
 
-  <script>
-    if(sessionStorage.getItem('authState') === null ) {
-      window.location.href = '/denied/';
-    }
-  </script>
-  <body onload="showScores(localStorage.getItem('user'))">
+<script>
+  if(sessionStorage.getItem('authState') === null ) {
+    window.location.href = '/denied/';
+  }
+  console.log(window.location.pathname);
+</script>
+
+  <body onload="database.display('teams'); showRules()">
     <div class="container">
 
     <h2>Create New Team</h2>
@@ -49,6 +51,7 @@
 
     <script src="/js/config.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/class.js"></script>
   </body>
   <footer>
     <small id="copyright">&copy; 2020 Isla Jassat</small>

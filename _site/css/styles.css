@@ -67,3 +67,11 @@ li {
   margin-top: -32px;
   margin-left: -32px;
 }
+
+.rule {
+  list-style: decimal;
+}
+
+.align-centre {
+  text-align: center;
+}

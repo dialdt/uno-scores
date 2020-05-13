@@ -11,36 +11,43 @@
   </head>
   <header>
     <ul class="nav align-middle">
-      <li class="nav-item"><a href="/rules/">Rules</a></li>
       <li class="nav-item nav-item-active"><a href="/main/">Home</a></li>
+      <li class="nav-item"><a href="/rules/">Add Rule</a></li>
     </ul>
     <p class="welcome" id="welcome"></p>
   </header>
 
-  <script>
-    if(sessionStorage.getItem('authState') === null ) {
-      window.location.href = '/denied/';
-    }
-  </script>
-  <body onload="showScores(localStorage.getItem('user'))">
+<script>
+  if(sessionStorage.getItem('authState') === null ) {
+    window.location.href = '/denied/';
+  }
+  console.log(window.location.pathname);
+</script>
+
+  <body onload="database.display('teams'); showRules()">
     <div class="container">
 
     <div class="row">
-<div class="eight columns">
+<div class="seven columns">
 <h2>Score</h2>
   <ul id="updateScores">
   </ul>
-  <div id="addPlayersMsg"></div>
+  <div id="addPlayersMsg" clas=="display"></div>
   <ul>
-    <li><div id="newPlayerContainer"><input type="text" id="newPlayerName"><button class="smallBtn" onclick="addPlayer()">+</button></div></li>
   </ul>
-  <button class="button-primary" onclick="document.getElementById('newPlayerContainer').style='visibility:visible;'">Add Player</button>
+  <button class="button-primary" onclick="getPlayer()">Add Player</button>
 </div>
-<div class="four columns">
+<div class="five columns">
 <h2>Leaderboard</h2>
-<div id="scoreContainer">
-    <ul id="scores">
-    </ul>
+  <div id="scoreContainer">
+      <ul id="scores" class="display">
+      </ul>
+  </div>
+<h2>House Rules</h2>
+  <div id="rulesContainer">
+    <ol class="houseRules display">
+    </ol>
+  </div>
 </div>
 <ul class="navigation">
 </ul>
@@ -63,6 +70,7 @@
 
     <script src="/js/config.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/class.js"></script>
   </body>
   <footer>
     <small id="copyright">&copy; 2020 Isla Jassat</small>

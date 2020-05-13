@@ -11,16 +11,30 @@
   </head>
   <header>
     <ul class="nav align-middle">
-      <li class="nav-item nav-item-active"><a href="/rules/">Rules</a></li>
       <li class="nav-item"><a href="/main/">Home</a></li>
+      <li class="nav-item nav-item-active"><a href="/rules/">Add Rule</a></li>
     </ul>
     <p class="welcome" id="welcome"></p>
   </header>
 
-  <body>
+<script>
+  if(sessionStorage.getItem('authState') === null ) {
+    window.location.href = '/denied/';
+  }
+  console.log(window.location.pathname);
+</script>
+
+  <body onload="showRules()">
     <div class="container">
 
-    <p>Test</p>
+      <div class="row">
+    <div class="twelve columns offset-by-3 align-centre">
+      <h2>Add House Rules</h2>
+      <input type="text" class="rule"><button onclick="addRule(this.previousElementSibling.value)">+</button>
+      <ol class="houseRules display">
+      </ol>
+    </div>
+  </div>
 
 
     </div>
@@ -38,6 +52,7 @@
 
     <script src="/js/config.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="/js/class.js"></script>
   </body>
   <footer>
     <small id="copyright">&copy; 2020 Isla Jassat</small>
