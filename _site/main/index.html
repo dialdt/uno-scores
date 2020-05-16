@@ -5,14 +5,13 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <link type="text/css" rel="stylesheet" href="/css/styles.css" />
-    <link type="text/css" rel="stylesheet" href="/css/skeleton.css" />
-    <link type="text/css" rel="stylesheet" href="/css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="/css/grid.css" />
     <title>Uno Score Tracker</title>
   </head>
   <header>
-    <ul class="nav align-middle">
-      <li class="nav-item nav-item-active"><a href="/main/">Home</a></li>
-      <li class="nav-item"><a href="/rules/">Add Rule</a></li>
+    <ul class="nav">
+      <li class="nav-item" id="player" onclick="">+ Player</li>
+      <li class="nav-item" id="rule" onclick="">+ Rule</li>
     </ul>
     <p class="welcome" id="welcome"></p>
   </header>
@@ -24,28 +23,39 @@
   console.log(window.location.pathname);
 </script>
 
-  <body onload="database.display('teams'); showRules()">
+  <body onload="display('teams'); display('rules')">
     <div class="container">
 
-    <div class="row">
-<div class="seven columns">
+    <div class="grid">
+  <div class="modal">
+    <div class="modalContent">
+      <span class="close">&times;</span>
+      <input type="text" id="newPlayer" placeholder="New player name"><button onclick="add('teams', this.previousElementSibling.value); this.parentElement.parentElement.style.display='none'">+</button>
+    </div>
+  </div>
+  <div class="modal">
+    <div class="modalContent">
+      <span class="close">&times;</span>
+      <input type="text" id="newRule" placeholder="New rule"><button onclick="add('rules', this.previousElementSibling.value); this.parentElement.parentElement.style.display='none'">+</button>
+    </div>
+  </div>
+<div class="grid__col grid__col--3-of-5">
 <h2>Score</h2>
-  <ul id="updateScores">
+  <ul id="updateScores" class="teams-display">
   </ul>
-  <div id="addPlayersMsg" clas=="display"></div>
+  <div id="addPlayersMsg" class="display"></div>
   <ul>
   </ul>
-  <button class="button-primary" onclick="getPlayer()">Add Player</button>
 </div>
-<div class="five columns">
+<div class="grid__col grid__col--2-of-5">
 <h2>Leaderboard</h2>
   <div id="scoreContainer">
-      <ul id="scores" class="display">
+      <ul id="scores" class="teams-display">
       </ul>
   </div>
 <h2>House Rules</h2>
   <div id="rulesContainer">
-    <ol class="houseRules display">
+    <ol class="houseRules rules-display">
     </ol>
   </div>
 </div>

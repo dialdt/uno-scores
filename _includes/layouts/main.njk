@@ -1,6 +1,6 @@
 {% include 'layouts/header.njk' %}
 {% include 'layouts/denied.njk' %}
-  <body onload="database.display('teams'); showRules()">
+  <body onload="display('teams'); display('rules')">
     <div class="container">
 
     {{ content | safe }}
