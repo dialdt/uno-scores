@@ -2,7 +2,18 @@ html,
 body {
   margin: 0;
   padding: 0;
+  font-family: Jost;
+  background-color: #e74c3c;
+  color: white;
+}
+
+html {
   height: 100%;
+}
+
+body {
+  min-height: 100%;
+  padding-left: 10px;
 }
 
 input {
@@ -39,12 +50,6 @@ li {
   padding: 10px;
 }
 
-.nav-item {
-  display: inline;
-  list-style: none;
-  padding-left: 20px;
-}
-
 #newPlayerContainer {
   visibility: hidden;
 }
@@ -64,10 +69,11 @@ li {
 #copyright {
   position: absolute;
   bottom: 10px;
-  width: 100px;
+  width: 100%;
   left: 0;
   right: 0;
   margin: 0 auto;
+  text-align: center;
 }
 
 .logout {
@@ -78,7 +84,6 @@ li {
 }
 
 .nav {
-  padding-top: 10px;
   height: 50px;
 }
 
@@ -121,11 +126,12 @@ li {
 }
 
 .modalContent {
-  background-color: #fefefe;
+  background-color: #3498db;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%; /* Could be more or less, depending on screen size */
+  border-radius: 3px;
+  box-shadow: 3px 3px 30px #2c3e50;
 }
 
 .close {
@@ -140,4 +146,56 @@ li {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.nav-item {
+  display: inline-block;
+  list-style: none;
+  padding-left: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding: 5px;
+  width: 70px;
+  text-align: center;
+  border-radius: 3px;
+  font-weight: lighter !important;
+}
+
+@media screen
+  and (max-device-width: 600px) {
+  .nav-item {
+    display: block;
+    width: 40%;
+    margin-bottom: 5px;
+  }
+
+  .nav {
+    margin-bottom: 70px;
+    padding-left: 0px;
+  }
+
+  html,
+  body {
+    padding-left: 10px;
+  }
+
+  .modalContent {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%; /* Could be more or less, depending on screen size */
+    border-radius: 0px;
+  }
+}
+
+#hero-title {
+  font-size: 80px;
+  color: yellow;
+  font-family: 'Amatic SC';
+  margin-bottom: 5px;
+}
+
+#subtitle {
+
 }

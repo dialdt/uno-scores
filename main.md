@@ -9,13 +9,17 @@ templateClass: tmpl-main
   <div class="modal">
     <div class="modalContent">
       <span class="close">&times;</span>
-      <input type="text" id="newPlayer" placeholder="New player name"><button onclick="add('teams', this.previousElementSibling.value); this.parentElement.parentElement.style.display='none'">+</button>
+      <div class="inputGroup">
+        <input type="text" id="newPlayer" placeholder="New player name"><button onclick="add('teams', this.previousElementSibling.value); this.parentElement.parentElement.parentElement.style.display='none'">+</button>
+      </div>
     </div>
   </div>
   <div class="modal">
     <div class="modalContent">
       <span class="close">&times;</span>
-      <input type="text" id="newRule" placeholder="New rule"><button onclick="add('rules', this.previousElementSibling.value); this.parentElement.parentElement.style.display='none'">+</button>
+      <div class="inputGroup">
+        <input type="text" id="newRule" placeholder="New rule"><button onclick="add('rules', this.previousElementSibling.value); this.parentElement.parentElement.parentElement.style.display='none'">+</button>
+      </div>
     </div>
   </div>
 <div class="grid__col grid__col--3-of-5">

@@ -179,11 +179,12 @@ function display(collection) {
       if(Object.keys(doc.data()).length > 0) {
         //get player data
         var obj = doc.data();
+        var sortedObj = sortObj(obj);
 
         //loop through database object and output li
-        for(var key in obj) {
-          var name = key;
-          var score = obj[key];
+        for(var key in sortedObj) {
+          var name = sortedObj[key][0];
+          var score = sortedObj[key][1];
 
           //update page elements with db data
           if(collection === 'teams') {
@@ -193,7 +194,7 @@ function display(collection) {
               for(var i = 0; i < display.length; i++) {
                 display[i].innerHTML = ''
               }
-              document.getElementsByClassName('houseRules')[0].innerHTML += '<li id="' + key + '">' + obj[key] + '<button onclick="remove(\'rules\',this.parentElement.getAttribute(\'id\'))">x</button></li>';
+              document.getElementsByClassName('houseRules')[0].innerHTML += '<li id="' + sortedObj[key][0] + '">' + sortedObj[key][1] + '<button onclick="remove(\'rules\',this.parentElement.getAttribute(\'id\'))">x</button></li>';
           }
         };
       } else {
@@ -236,4 +237,26 @@ function logout() {
 function randomGreeting(name) {
   var randomNum = Math.floor(Math.random() * greetings.length);
   sessionStorage.setItem('greeting',greetings[randomNum] + ', ' + name);
+}
+
+function sortObj(obj) {
+  return Object.entries(obj).sort((a,b)=>b[1]-a[1]);
+}
+
+function reset(collection) {
+  var data = database.init(collection);
+  data.get().then(function(doc){
+    if(doc.exists){
+      var obj = doc.data();
+      for(var key in obj) {
+        data.update({
+          [`${key}`]: 0
+        }).then(function(){
+          display(collection);
+        })
+      }
+    } else {
+      console.log('no such document');
+    }
+  });
 }
