@@ -14,5 +14,7 @@
     "@11ty/eleventy-navigation": "^0.1.5",
     "markdown-it-anchor": "^5.2.7"
   },
-  "dependencies": {}
+  "dependencies": {
+    "netlify-cli": "^2.52.0"
+  }
 }

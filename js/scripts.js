@@ -47,8 +47,15 @@ class Database {
 
 }
 
-var database = new Database(config.apiKey, config.authDomain, config.databaseURL, config.projectId,
-  config.storageBucket, config.messagingSenderId, config.appId);
+var database = new Database(
+  process.env.APP_KEY,
+  process.env.AUTH_DOMAIN,
+  process.env.DB_URL,
+  process.env.PROJECT_ID,
+  process.env.STORAGE_BUCKET,
+  process.env.MESSAGING_SENDER_ID,
+  process.env.APP_ID
+);
 
 database.config();
 
