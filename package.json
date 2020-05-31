@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set NODE_ENV=dev&& node app.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "markdown-it-anchor": "^5.2.7"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "netlify-cli": "^2.52.0"
   }
 }
