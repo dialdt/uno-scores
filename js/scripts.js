@@ -47,8 +47,14 @@ class Database {
 
 }
 
+const api = await fetch('../functions/token-hider', {
+  method: 'GET',
+})
+
+console.log(api)
+
 var database = new Database(
-  
+
   APP_KEY,
   AUTH_DOMAIN,
   DB_URL,

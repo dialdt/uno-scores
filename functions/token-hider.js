@@ -1,7 +1,8 @@
 const axios = require('axios')
 const qs = require('qs')
 
-exports.handler = async function(event, context) {
+
+exports.handler = async function(event, context, callback) {
   // apply our function to the queryStringParameters and assign it to a variable
   //const API_PARAMS = qs.stringify(event.queryStringParameters)
   //console.log('API_PARAMS', API_PARAMS)
@@ -13,4 +14,9 @@ exports.handler = async function(event, context) {
   //const URL = `https://dog.ceo/api/breed/${API_SECRET}/images`
 
   //console.log('Constructed URL is ...', URL)
+  callback(null, {
+    statusCode: 200,
+    body: event.body
+  })
+
 }
