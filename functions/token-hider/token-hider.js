@@ -9,7 +9,7 @@ exports.handler = async function(event, context) {
 
   // TODO: customize your URL and API keys set in the Netlify Dashboard
   // this is secret too, your frontend won't see this
-  const { API_SECRET = 'shiba' } = process.env
+  const { API_KEY, API_ID, AUTH_DOMAIN, DB_URL, MESSAGING_SENDER_ID, PROJECT_ID, STORAGE_BUCKET } = process.env
   const URL = `https://dog.ceo/api/breed/${API_SECRET}/images`
 
   console.log('Constructed URL is ...', URL)
