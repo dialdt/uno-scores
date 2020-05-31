@@ -48,6 +48,7 @@ class Database {
 }
 
 var database = new Database(
+  
   APP_KEY,
   AUTH_DOMAIN,
   DB_URL,

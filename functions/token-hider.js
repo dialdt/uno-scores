@@ -13,34 +13,4 @@ exports.handler = async function(event, context) {
   //const URL = `https://dog.ceo/api/breed/${API_SECRET}/images`
 
   //console.log('Constructed URL is ...', URL)
-  return [
-    {
-      statusCode: 200,
-      body: API_KEY
-    },
-    {
-      statusCode: 200,
-      body: APP_ID
-    },
-    {
-      statusCode: 200,
-      body: AUTH_DOMAIN
-    },
-    {
-      statusCode: 200,
-      body: DB_URL
-    },
-    {
-      statusCode: 200,
-      body: MESSAGING_SENDER_ID
-    },
-    {
-      statusCode: 200,
-      body: PROJECT_ID
-    },
-    {
-      statusCode: 200,
-      body: STORAGE_BUCKET
-    }
-  ]
 }
