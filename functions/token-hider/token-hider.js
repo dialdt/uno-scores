@@ -1,12 +1,12 @@
 const axios = require('axios')
 const qs = require('qs')
-const API_KEY = process.env
-const APP_ID = process.env
-const AUTH_DOMAIN = process.env
-const DB_URL = process.env
-const MESSAGING_SENDER_ID = process.env
-const PROJECT_ID = process.env
-const STORAGE_BUCKET = process.env
+const { API_KEY } = process.env
+const { APP_ID } = process.env
+const { AUTH_DOMAIN } = process.env
+const { DB_URL } = process.env
+const { MESSAGING_SENDER_ID } = process.env
+const { PROJECT_ID } = process.env
+const { STORAGE_BUCKET } = process.env
 
 
 exports.handler = async function(event, context) {

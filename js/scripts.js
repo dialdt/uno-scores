@@ -47,6 +47,8 @@ class Database {
 
 }
 
+console.log(process.env.APP_KEY)
+
 var database = new Database(
   process.env.APP_KEY,
   process.env.AUTH_DOMAIN,
