@@ -47,8 +47,9 @@ class Database {
 
 }
 
-let configs = async function() {
-  return await fetch('../functions/token-hider')
+let configs = async () => {
+  const result await fetch('../functions/token-hider')
+  return result;
 }
 
 console.log(configs)
