@@ -9,15 +9,15 @@ exports.handler = async function(event, context, callback) {
 
   callback(null, {
     statusCode: 200,
-    body: [{
-      apiKey: apiKey,
-      authDomain: authDomain,
-      databaseURL: databaseURL,
-      projectId: projectId,
-      storageBucket: storageBucket,
-      messagingSenderId: messagingSenderId,
-      appId: appId
-    }]
+    body: {
+      'apiKey': apiKey,
+      'authDomain': authDomain,
+      'databaseURL': databaseURL,
+      'projectId': projectId,
+      'storageBucket': storageBucket,
+      'messagingSenderId': messagingSenderId,
+      'appId': appId
+    }
   });
 
 }
