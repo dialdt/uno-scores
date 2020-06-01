@@ -17,7 +17,7 @@ exports.handler = async function(event, context, callback) {
       {'storageBucket': storageBucket},
       {'messagingSenderId': messagingSenderId},
       {'appId': appId}
-    }]
+    ]
   });
 
 }
