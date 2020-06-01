@@ -1,4 +1,4 @@
-exports.handler = async function(event, context) {
+exports.handler = async function(event, context, callback) {
   const apiKey = process.env.APP_KEY,
         authDomain = process.env.AUTH_DOMAIN,
         databaseURL = process.env.DB_URL,
